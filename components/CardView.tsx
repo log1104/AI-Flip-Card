@@ -7,10 +7,9 @@ interface CardViewProps {
   onAddCard: () => void;
   onEditCard: (card: CardData) => void;
   onDeleteCard: (cardId: string) => void;
-  isSyncing: boolean;
 }
 
-const CardView: React.FC<CardViewProps> = ({ deck, onAddCard, onEditCard, onDeleteCard, isSyncing }) => {
+const CardView: React.FC<CardViewProps> = ({ deck, onAddCard, onEditCard, onDeleteCard }) => {
   const secondaryButton =
     'inline-flex items-center justify-center gap-2 rounded-md border border-blue-200 dark:border-blue-800/40 px-4 py-2 text-sm font-semibold text-blue-600 dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 focus:ring-offset-white dark:focus:ring-offset-gray-900';
 

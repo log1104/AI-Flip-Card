@@ -18,8 +18,11 @@
 @layer utilities {
   /* App header surface for theme-specific background */
   .theme-light .app-header {
-    background-color: #c7d2fe; /* indigo-200 */
-    color: #1e293b; /* slate-800 */
+    background-color: #065f46; /* emerald-700: dark for strong contrast */
+    color: #ffffff; /* ensure white text is readable */
+  }
+  .theme-light .app-header .material-icons {
+    color: #ffffff;
   }
   .theme-dark .app-header {
     background-color: #2563eb; /* blue-600 */

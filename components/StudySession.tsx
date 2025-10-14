@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { Deck, StudySession } from '../types';
 import FlipCard from './FlipCard';
 
@@ -52,11 +52,6 @@ const StudySession: React.FC<StudySessionProps> = ({
   useEffect(() => {
     setHasFlippedOnce(false);
   }, [session.currentIndex]);
-
-  const currentFace = useMemo(() => {
-    if (!currentCard) return null;
-    return session.showingFront ? currentCard.front : currentCard.back;
-  }, [currentCard, session.showingFront]);
 
   if (!currentCard) {
     return (

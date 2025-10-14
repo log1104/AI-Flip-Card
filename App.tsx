@@ -5,7 +5,6 @@ import CardView from './components/CardView';
 import AddCardModal from './components/AddCardModal';
 import LoginForm from './components/auth/LoginForm';
 import RegisterForm from './components/auth/RegisterForm';
-import LogoutButton from './components/auth/LogoutButton';
 import StudySession from './components/StudySession';
 import DeckDrawer from './components/DeckDrawer';
 import SettingsPanel from './components/SettingsPanel';
@@ -240,7 +239,6 @@ const App: React.FC = () => {
               >
                 <span className="material-icons">settings</span>
               </button>
-              <LogoutButton />
             </div>
           </div>
         </header>
@@ -286,7 +284,6 @@ const App: React.FC = () => {
               onAddCard={handleOpenCreateModal}
               onEditCard={handleEditCard}
               onDeleteCard={handleDeleteCard}
-              isSyncing={isSyncing}
             />
           )}
         </main>

@@ -14,29 +14,34 @@ import type {
 const QUEUE_STORAGE_KEY = 'flip-card-pending-mutations';
 
 const defaultSettings: AppSettings = {
-  theme: 'system',
+  theme: 'light',
   shuffle: false,
   startFace: 'front',
 };
 
 const SETTINGS_STORAGE_KEY = 'flip-card-settings';
 
+type StoredTheme = 'light' | 'dark' | 'system';
+
 const loadSettings = (): AppSettings => {
   if (typeof window === 'undefined') return defaultSettings;
   try {
     const raw = window.localStorage.getItem(SETTINGS_STORAGE_KEY);
     if (!raw) return defaultSettings;
-    const parsed = JSON.parse(raw);
-    // validate minimal shape
-    if (
-      parsed &&
-      (parsed.theme === 'light' || parsed.theme === 'dark' || parsed.theme === 'system') &&
-      typeof parsed.shuffle === 'boolean' &&
-      (parsed.startFace === 'front' || parsed.startFace === 'back')
-    ) {
-      return parsed as AppSettings;
+    const parsed = JSON.parse(raw) as {
+      theme?: StoredTheme;
+      shuffle?: AppSettings['shuffle'];
+      startFace?: AppSettings['startFace'];
+    };
+    let theme: 'light' | 'dark' = 'light';
+    if (parsed.theme === 'dark') {
+      theme = 'dark';
+    } else if (parsed.theme === 'system') {
+      theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
-    return defaultSettings;
+    const shuffle = typeof parsed.shuffle === 'boolean' ? parsed.shuffle : defaultSettings.shuffle;
+    const startFace = parsed.startFace === 'back' ? 'back' : 'front';
+    return { theme, shuffle, startFace };
   } catch {
     return defaultSettings;
   }

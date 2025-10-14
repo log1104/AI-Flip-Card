@@ -4,7 +4,7 @@
 
 # AI Flip Cards
 
-A Supabase-backed PWA for creating, studying, and syncing flashcard decks. Users authenticate with email/password or OAuth (Google, GitHub); decks and cards are stored in Supabase with optimistic updates and an offline queue that replays mutations when connectivity returns.
+A Supabase-backed PWA for creating, studying, and syncing flashcard decks. Users authenticate with email/password or Google OAuth; decks and cards are stored in Supabase with optimistic updates and an offline queue that replays mutations when connectivity returns.
 
 ## Project Structure
 
@@ -83,6 +83,7 @@ Copy `.env.local` and provide real values (see [docs/supabase-setup.md](docs/sup
 GEMINI_API_KEY=placeholder-or-remove-if-unused
 VITE_SUPABASE_URL=https://YOUR-PROJECT.supabase.co
 VITE_SUPABASE_ANON_KEY=SUPABASE_ANON_KEY
+VITE_SUPABASE_GOOGLE_ENABLED=true
 ```
 
 When deploying to Vercel, add the same variables in the project settings.

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { AppSettings } from '../types';
+import { useAuth } from '../auth/AuthContext';
 
 interface SettingsPanelProps {
   isOpen: boolean;
@@ -10,11 +11,12 @@ interface SettingsPanelProps {
 
 const SettingsPanel: React.FC<SettingsPanelProps> = ({ isOpen, onClose, settings, onUpdateSettings }) => {
   if (!isOpen) return null;
+  const { signOut } = useAuth();
+  const [isSigningOut, setSigningOut] = useState(false);
 
   const themeOptions: Array<{ label: string; value: AppSettings['theme'] }> = [
     { label: 'Light', value: 'light' },
     { label: 'Dark', value: 'dark' },
-    { label: 'System', value: 'system' },
   ];
 
   return (
@@ -90,6 +92,26 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ isOpen, onClose, settings
                 </button>
               ))}
             </div>
+          </section>
+
+          <section className="space-y-3 pt-2 border-t border-gray-200 dark:border-gray-800">
+            <h3 className="text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">Account</h3>
+            <button
+              onClick={async () => {
+                setSigningOut(true);
+                try {
+                  onClose();
+                  await signOut();
+                } finally {
+                  setSigningOut(false);
+                }
+              }}
+              disabled={isSigningOut}
+              className="inline-flex items-center justify-center gap-2 rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1 focus:ring-offset-white dark:focus:ring-offset-gray-950 disabled:opacity-70"
+            >
+              <span className="material-icons text-base">logout</span>
+              {isSigningOut ? 'Signing out…' : 'Sign out'}
+            </button>
           </section>
         </div>
       </div>

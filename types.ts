@@ -20,7 +20,7 @@ export interface Deck {
 }
 
 export interface AppSettings {
-  theme: 'light' | 'dark' | 'system';
+  theme: 'light' | 'dark';
   shuffle: boolean;
   startFace: 'front' | 'back';
 }

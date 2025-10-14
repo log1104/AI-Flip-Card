@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useMemo, useState } from '
 import type { Session, User } from '@supabase/supabase-js';
 import { supabase } from '../supabaseClient';
 
-type OAuthProvider = 'google' | 'github';
+type OAuthProvider = 'google';
 
 interface AuthContextValue {
   user: User | null;
@@ -12,9 +12,14 @@ interface AuthContextValue {
   signUpWithEmail: (email: string, password: string) => Promise<void>;
   signInWithProvider: (provider: OAuthProvider) => Promise<void>;
   signOut: () => Promise<void>;
+  oauthProviders: {
+    google: boolean;
+  };
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
+
+const googleEnabled = import.meta.env.VITE_SUPABASE_GOOGLE_ENABLED !== 'false';
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [session, setSession] = useState<Session | null>(null);
@@ -60,6 +65,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const signInWithProvider = async (provider: OAuthProvider) => {
+    if (provider === 'google' && !googleEnabled) {
+      throw new Error('Google sign-in is not enabled.');
+    }
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
@@ -86,6 +94,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     signUpWithEmail,
     signInWithProvider,
     signOut,
+    oauthProviders: {
+      google: googleEnabled,
+    },
   }), [user, session, loading]);
 
   return (
