@@ -1,0 +1,5 @@
+{
+  "name": "AI_FlipCards ",
+  "description": "An interactive flip card application with a unified 'Study Hub' for a more intuitive learning experience. Features deck management, a focused study mode, and a settings menu for theme control (Light/Dark/System) and customizable study sessions.",
+  "requestFramePermissions": []
+}

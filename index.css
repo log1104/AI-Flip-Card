@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans bg-gray-100 text-gray-900 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100;
+  }
+
+  /* Pastel light theme overrides */
+  .theme-light body {
+    background-color: #f8fafc; /* pastel near-white */
+    color: #334155; /* slate-700 */
+  }
+}
+
+/* Component-level pastel touches placed in utilities so they override Tailwind utilities */
+@layer utilities {
+  /* App header surface for theme-specific background */
+  .theme-light .app-header {
+    background-color: #c7d2fe; /* indigo-200 */
+    color: #1e293b; /* slate-800 */
+  }
+  .theme-dark .app-header {
+    background-color: #2563eb; /* blue-600 */
+    color: #ffffff;
+  }
+
+  /* FlipCard back face can adopt a softer blue in light mode */
+  .theme-light .flip-back-surface {
+    background-color: #93c5fd; /* blue-300 */
+    color: #000000; /* force black text on light back */
+  }
+  .theme-light .flip-back-surface h1,
+  .theme-light .flip-back-surface h2,
+  .theme-light .flip-back-surface h3,
+  .theme-light .flip-back-surface h4,
+  .theme-light .flip-back-surface h5,
+  .theme-light .flip-back-surface h6,
+  .theme-light .flip-back-surface p,
+  .theme-light .flip-back-surface span,
+  .theme-light .flip-back-surface li,
+  .theme-light .flip-back-surface small,
+  .theme-light .flip-back-surface strong,
+  .theme-light .flip-back-surface em,
+  .theme-light .flip-back-surface code,
+  .theme-light .flip-back-surface div {
+    color: #000000;
+    font-weight: 600; /* more bold in light theme */
+  }
+  .theme-light .flip-back-surface h1,
+  .theme-light .flip-back-surface h2,
+  .theme-light .flip-back-surface h3,
+  .theme-light .flip-back-surface h4,
+  .theme-light .flip-back-surface h5,
+  .theme-light .flip-back-surface h6,
+  .theme-light .flip-back-surface strong {
+    font-weight: 700; /* headings and strong even bolder */
+  }
+
+  /* FlipCard front: vivid yellow for dark theme; use black text on yellow */
+  .theme-dark .flip-front-surface {
+    background-color: #facc15; /* yellow-400 */
+    color: #000000;
+  }
+  .theme-dark .flip-front-surface h1,
+  .theme-dark .flip-front-surface h2,
+  .theme-dark .flip-front-surface h3,
+  .theme-dark .flip-front-surface h4,
+  .theme-dark .flip-front-surface h5,
+  .theme-dark .flip-front-surface h6,
+  .theme-dark .flip-front-surface p,
+  .theme-dark .flip-front-surface span,
+  .theme-dark .flip-front-surface li,
+  .theme-dark .flip-front-surface small,
+  .theme-dark .flip-front-surface strong,
+  .theme-dark .flip-front-surface em,
+  .theme-dark .flip-front-surface code,
+  .theme-dark .flip-front-surface div {
+    color: #000000;
+  }
+
+  /* FlipCard front: deeper green in light theme */
+  .theme-light .flip-front-surface {
+    background-color: #86efac; /* green-300 (deeper than green-200) */
+    color: #000000; /* deeper black text */
+  }
+  .theme-light .flip-front-surface h1,
+  .theme-light .flip-front-surface h2,
+  .theme-light .flip-front-surface h3,
+  .theme-light .flip-front-surface h4,
+  .theme-light .flip-front-surface h5,
+  .theme-light .flip-front-surface h6,
+  .theme-light .flip-front-surface p,
+  .theme-light .flip-front-surface span,
+  .theme-light .flip-front-surface li,
+  .theme-light .flip-front-surface small,
+  .theme-light .flip-front-surface strong,
+  .theme-light .flip-front-surface em,
+  .theme-light .flip-front-surface code,
+  .theme-light .flip-front-surface div {
+    color: #000000;
+    font-weight: 600; /* more bold */
+  }
+  .theme-light .flip-front-surface h1,
+  .theme-light .flip-front-surface h2,
+  .theme-light .flip-front-surface h3,
+  .theme-light .flip-front-surface h4,
+  .theme-light .flip-front-surface h5,
+  .theme-light .flip-front-surface h6,
+  .theme-light .flip-front-surface strong {
+    font-weight: 700; /* headings and strong even bolder */
+  }
+}
+
