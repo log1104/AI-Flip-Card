@@ -15,8 +15,8 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ isOpen, onClose, settings
   const [isSigningOut, setSigningOut] = useState(false);
 
   const themeOptions: Array<{ label: string; value: AppSettings['theme'] }> = [
-    { label: 'Light', value: 'light' },
-    { label: 'Dark', value: 'dark' },
+    { label: 'Aqua', value: 'light' },
+    { label: 'IKEA', value: 'dark' },
   ];
 
   return (

@@ -18,14 +18,14 @@
 @layer utilities {
   /* App header surface for theme-specific background */
   .theme-light .app-header {
-    background-color: #065f46; /* emerald-700: dark for strong contrast */
+    background-color: #476EAE; /* custom blue color */
     color: #ffffff; /* ensure white text is readable */
   }
   .theme-light .app-header .material-icons {
     color: #ffffff;
   }
   .theme-dark .app-header {
-    background-color: #2563eb; /* blue-600 */
+    background-color: #476EAE; /* custom blue color */
     color: #ffffff;
   }
 
@@ -85,7 +85,7 @@
 
   /* FlipCard front: deeper green in light theme */
   .theme-light .flip-front-surface {
-    background-color: #86efac; /* green-300 (deeper than green-200) */
+    background-color: #48B3AF; /* custom teal */
     color: #000000; /* deeper black text */
   }
   .theme-light .flip-front-surface h1,

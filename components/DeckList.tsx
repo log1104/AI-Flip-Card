@@ -118,33 +118,24 @@ const DeckList: React.FC = () => {
               onChange={(event) => setTitle(event.target.value)}
               required
               className="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 px-3 py-2 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Frontend patterns"
             />
           </div>
           <div>
-            <label htmlFor="create-deck-description" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Description
-            </label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Description</label>
             <textarea
-              id="create-deck-description"
               value={description}
               onChange={(event) => setDescription(event.target.value)}
               rows={2}
               className="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 px-3 py-2 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Short description (optional)"
             />
           </div>
           <div className="flex items-center gap-3">
             <button type="submit" className={primaryButton}>
-              Save Deck
+              Save
             </button>
             <button
               type="button"
-              onClick={() => {
-                setIsCreating(false);
-                setTitle('');
-                setDescription('');
-              }}
+              onClick={() => setIsCreating(false)}
               className="text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 focus:ring-offset-white dark:focus:ring-offset-gray-900"
             >
               Cancel
@@ -153,11 +144,11 @@ const DeckList: React.FC = () => {
         </form>
       )}
 
-      <div className="space-y-3">
+      <div className="space-y-4">
         {decks.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-6 text-center text-sm text-gray-500 dark:text-gray-400">
-            You haven&rsquo;t created any decks yet. Tap <span className="font-semibold text-blue-600 dark:text-blue-400">New Deck</span> to start building
-            your first study collection.
+          <div className="rounded-xl border border-dashed border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/40 p-6 text-center text-sm text-gray-500 dark:text-gray-400">
+            <p className="font-medium">No decks yet</p>
+            <p className="mt-1">Create your first deck to get started.</p>
           </div>
         ) : (
           decks.map((deck) => (
