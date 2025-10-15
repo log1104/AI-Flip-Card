@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import type { Deck, StudySession } from '../types';
-import FlipCard from './FlipCard';
+import StudyCard, { StudyCardHandle } from './StudyCard';
 
 interface StudySessionProps {
   session: StudySession;
@@ -11,15 +11,8 @@ interface StudySessionProps {
   onFlip: () => void;
 }
 
-const StudySession: React.FC<StudySessionProps> = ({
-  session,
-  deck,
-  onClose,
-  onNext,
-  onPrev,
-  onFlip,
-}) => {
-  const [hasFlippedOnce, setHasFlippedOnce] = useState(false);
+const StudySession: React.FC<StudySessionProps> = ({ session, deck, onClose, onNext, onPrev, onFlip }) => {
+  const cardRef = useRef<StudyCardHandle>(null);
   const currentCard = session.cards[session.currentIndex];
   const totalCards = session.cards.length;
 
@@ -35,7 +28,7 @@ const StudySession: React.FC<StudySessionProps> = ({
         onPrev();
       } else if (event.key === ' ' || event.key === 'Enter') {
         event.preventDefault();
-        onFlip();
+        cardRef.current?.flip();
       } else if (event.key === 'Escape') {
         event.preventDefault();
         onClose();
@@ -46,12 +39,7 @@ const StudySession: React.FC<StudySessionProps> = ({
       document.body.style.overflow = prevOverflow;
       window.removeEventListener('keydown', handleKey);
     };
-  }, [onClose, onFlip, onNext, onPrev]);
-
-  // Show the flip hint once per card: reset when the current index changes
-  useEffect(() => {
-    setHasFlippedOnce(false);
-  }, [session.currentIndex]);
+  }, [onClose, onNext, onPrev]);
 
   if (!currentCard) {
     return (
@@ -69,11 +57,6 @@ const StudySession: React.FC<StudySessionProps> = ({
     );
   }
 
-  const handleFlip = () => {
-    if (!hasFlippedOnce) setHasFlippedOnce(true);
-    onFlip();
-  };
-
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-[#0a0f1d] text-white">
       <header className="flex items-center justify-end px-10 py-8">
@@ -85,8 +68,8 @@ const StudySession: React.FC<StudySessionProps> = ({
           <span className="material-icons text-2xl">close</span>
         </button>
       </header>
-      <main className="flex flex-1 flex-col items-center justify-center px-6 pb-16">
-        <div className="relative flex w-full max-w-3xl items-center justify-between">
+      <main className="flex flex-1 flex-col items-center justify-center px-4 sm:px-6 pb-12 sm:pb-16">
+        <div className="relative flex w-full max-w-5xl items-center justify-between">
           <button
             onClick={onPrev}
             className="rounded-full p-3 text-white/50 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/40"
@@ -94,11 +77,12 @@ const StudySession: React.FC<StudySessionProps> = ({
           >
             <span className="material-icons text-3xl">chevron_left</span>
           </button>
-          <div className="mx-6 flex-1">
-            <FlipCard
-              className="max-w-none h-80 md:h-96"
-              flipped={!session.showingFront}
-              onFlip={handleFlip}
+          <div className="mx-4 flex-1">
+            <StudyCard
+              ref={cardRef}
+              className="w-full max-w-2xl h-[60vh]"
+              initialFlipped={!session.showingFront}
+              onFlip={onFlip}
               frontContent={
                 <div className="space-y-4">
                   <h3 className="text-2xl font-semibold text-gray-900">{currentCard.front.title || 'Question'}</h3>
@@ -111,11 +95,6 @@ const StudySession: React.FC<StudySessionProps> = ({
                   <p className="text-base leading-relaxed text-blue-50">{currentCard.back.content}</p>
                 </div>
               }
-              // Hide edit/delete in study mode; show hint only until first flip per card
-              showActions={false}
-              showFlipHint={session.showingFront && !hasFlippedOnce}
-              onDelete={() => {}}
-              onEdit={() => {}}
             />
           </div>
           <button
@@ -126,9 +105,9 @@ const StudySession: React.FC<StudySessionProps> = ({
             <span className="material-icons text-3xl">chevron_right</span>
           </button>
         </div>
-        <p className="mt-10 text-sm font-medium tracking-wide text-white/70">
+        <p className="mt-8 text-sm font-medium tracking-wide text-white/70">
           {session.currentIndex + 1} / {totalCards}
-          {deck ? ` · ${deck.title}` : ''}
+          {deck ? ` - ${deck.title}` : ''}
         </p>
       </main>
     </div>
