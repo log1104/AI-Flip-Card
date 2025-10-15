@@ -77,7 +77,7 @@ const StudySession: React.FC<StudySessionProps> = ({ session, deck, onClose, onN
           >
             <span className="material-icons text-3xl">chevron_left</span>
           </button>
-          <div className="mx-4 flex-1">
+          <div className="mx-4 flex-1 flex justify-center">
             <StudyCard
               ref={cardRef}
               className="w-full max-w-2xl h-[60vh]"
