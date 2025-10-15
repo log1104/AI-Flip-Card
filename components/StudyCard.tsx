@@ -45,10 +45,10 @@ const StudyCard = forwardRef<StudyCardHandle, StudyCardProps>(
             isFlipped ? '[transform:rotateY(180deg)]' : ''
           }`}
         >
-          <div className="flip-front-surface absolute w-full h-full [backface-visibility:hidden] rounded-3xl shadow-2xl bg-white p-8 overflow-y-auto">
+          <div className="flip-front-surface absolute w-full h-full [backface-visibility:hidden] rounded-3xl shadow-2xl bg-white p-8 overflow-y-auto flex flex-col items-center justify-center text-center">
             {frontContent}
           </div>
-          <div className="flip-back-surface absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-3xl shadow-2xl bg-blue-600 text-white p-8 overflow-y-auto">
+          <div className="flip-back-surface absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-3xl shadow-2xl bg-blue-600 text-white p-8 overflow-y-auto flex flex-col items-center justify-center text-center">
             {backContent}
           </div>
         </div>
