@@ -217,12 +217,14 @@ const DeckDrawer: React.FC<DeckDrawerProps> = ({ isOpen, onClose }) => {
     };
   }, [isMenuOpen]);
 
-  const handleToggleMenu = useCallback(() => {
-    setMenuOpen((prev) => !prev);
-  }, []);
+  const handleCreateNewDeck = useCallback(() => {
+    const title = window.prompt('Enter a name for the new deck:');
+    if (title) {
+      createDeck({ title, description: null });
+    }
+  }, [createDeck]);
 
   const handleExportDeck = useCallback(() => {
-    setMenuOpen(false);
     if (!activeDeck) {
       window.alert('Select a deck before exporting.');
       return;
@@ -253,7 +255,6 @@ const DeckDrawer: React.FC<DeckDrawerProps> = ({ isOpen, onClose }) => {
   }, [activeDeck]);
 
   const handleTriggerImport = useCallback(() => {
-    setMenuOpen(false);
     fileInputRef.current?.click();
   }, []);
 
@@ -350,49 +351,33 @@ const DeckDrawer: React.FC<DeckDrawerProps> = ({ isOpen, onClose }) => {
           </button>
         </div>
         <div className="px-5 pb-3">
-          <div className="relative inline-flex" ref={menuRef}>
+          <div className="flex gap-2">
             <button
               type="button"
-              onClick={handleToggleMenu}
+              onClick={handleCreateNewDeck}
               className="rounded-full border border-gray-200 bg-white/90 p-2 text-gray-600 transition hover:bg-gray-100 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-offset-gray-900"
-              aria-label="Import or export decks"
-              aria-haspopup="menu"
-              aria-expanded={isMenuOpen}
+              aria-label="Create new deck"
+            >
+              <span className="material-icons text-lg">create_new_folder</span>
+            </button>
+            <button
+              type="button"
+              onClick={handleTriggerImport}
+              className="rounded-full border border-gray-200 bg-white/90 p-2 text-gray-600 transition hover:bg-gray-100 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-offset-gray-900"
+              aria-label="Import deck from CSV"
               disabled={isImporting}
             >
-              <span className="material-icons text-lg">folder_open</span>
+              <span className="material-icons text-lg">file_upload</span>
             </button>
-            {isMenuOpen && (
-              <div className="absolute left-0 mt-2 min-w-[12rem] max-w-[clamp(12rem,40vw,18rem)] overflow-hidden rounded-xl border border-gray-200 bg-white shadow-xl ring-1 ring-black/5 dark:border-gray-700 dark:bg-gray-800 dark:shadow-2xl dark:ring-white/10 z-50">
-                <div className="py-1 text-sm text-gray-800 dark:text-gray-100">
-                  <button
-                    type="button"
-                    onClick={handleTriggerImport}
-                    className="flex w-full items-center gap-3 px-4 py-2 text-left transition hover:bg-gray-100 dark:hover:bg-gray-700"
-                    disabled={isImporting}
-                  >
-                    <span className="material-icons text-base text-blue-600 dark:text-blue-300">file_upload</span>
-                    Import deck (CSV)
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleExportDeck}
-                    className="flex w-full items-center gap-3 px-4 py-2 text-left transition hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50"
-                    disabled={!activeDeck || activeDeck.cards.length === 0}
-                  >
-                    <span className="material-icons text-base text-green-600 dark:text-green-300">file_download</span>
-                    Export deck (CSV)
-                  </button>
-                </div>
-              </div>
-            )}
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept=".csv,text/csv"
-              className="hidden"
-              onChange={handleImportFile}
-            />
+            <button
+              type="button"
+              onClick={handleExportDeck}
+              className="rounded-full border border-gray-200 bg-white/90 p-2 text-gray-600 transition hover:bg-gray-100 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-offset-gray-900"
+              aria-label="Export active deck to CSV"
+              disabled={!activeDeck || activeDeck.cards.length === 0}
+            >
+              <span className="material-icons text-lg">file_download</span>
+            </button>
           </div>
         </div>
         <div className="h-full overflow-y-auto px-5 pb-6">
