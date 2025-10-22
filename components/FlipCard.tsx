@@ -73,8 +73,8 @@ const FlipCard: React.FC<FlipCardProps> = ({
         </div>
 
   {/* Back Face */}
-  <div className="flip-back-surface absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-xl shadow-md bg-blue-600 text-white p-4 flex flex-col">
-          <div className="flex-grow">
+  <div className="flip-back-surface absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-xl shadow-md bg-blue-600 text-white p-4 grid grid-rows-[1fr_auto] overflow-hidden">
+          <div className="min-h-0 overflow-auto pr-1 scroll-fade scroll-stable">
             {backContent}
           </div>
           {showActions && (

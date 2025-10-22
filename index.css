@@ -114,5 +114,27 @@
   .theme-light .flip-front-surface strong {
     font-weight: 700; /* headings and strong even bolder */
   }
+
+  /* Utility: fade bottom edge of scrollable content to hint overflow */
+  .scroll-fade {
+    --scroll-fade-size: 20px;
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 calc(100% - var(--scroll-fade-size)),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 calc(100% - var(--scroll-fade-size)),
+      transparent 100%
+    );
+  }
+
+  /* Utility: reserve space so scrollbars don't shift layout */
+  .scroll-stable {
+    scrollbar-gutter: stable both-edges;
+  }
 }
 
