@@ -124,4 +124,19 @@ When deploying to Vercel, add the same variables in the project settings.
 
 - Use `npm run typecheck` and `npm run lint` before pushing changes.
 - `npm run build` verifies that Vercel’s production build will succeed.
-- Pending mutations are stored under the `flip-card-pending-mutations` key in `localStorage`; clear it to reset offline queues during testing.
+ - Pending mutations are stored under the `flip-card-pending-mutations` key in `localStorage`; clear it to reset offline queues during testing.
+
+## Recent UX Improvements
+
+- Gallery cards: actions are pinned in a fixed footer on the back face so long answers never push Edit/Delete off screen. The content area scrolls when needed.
+- Subtle overflow hint: a bottom fade mask (`.scroll-fade`) applied to scrollable areas suggests there is more content below.
+- Stable scrollbars: `.scroll-stable` reserves gutter space to prevent layout jumps when scrollbars appear (notable on Windows).
+- Study session layout: navigation row is now a 3-column grid, keeping the card perfectly centered between the left/right arrows across breakpoints.
+- Flip cue: a small `touch_app` hint with the label "Flip" appears on the front of study cards, consistent with the gallery.
+
+### Utility Classes
+
+- `.scroll-fade` — adds a linear-gradient mask to the bottom of a scrollable pane.
+- `.scroll-stable` — sets `scrollbar-gutter: stable both-edges` to avoid horizontal reflow when a vertical scrollbar toggles.
+
+These utilities are defined in `index.css` and can be applied to any scrollable container.

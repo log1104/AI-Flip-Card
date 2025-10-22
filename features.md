@@ -21,3 +21,7 @@ Updated capabilities as of the Supabase integration refactor:
 *   Clean two-column layout with deck management on the left and card gallery on the right.
 *   `ThemeManager` preserves light/dark/system preferences.
 *   Flip cards remain the primary interaction, using the existing `FlipCard` component with updated styling for the new data model.
+*   Gallery card back now has a fixed action footer (Edit/Delete) with the content pane scrollable to prevent controls from being pushed off-screen.
+*   Subtle bottom fade and stable scrollbars smooth overflow behavior (`.scroll-fade`, `.scroll-stable`).
+*   Study session layout centers the active card precisely between navigation arrows.
+*   Front-of-card flip cue added in study sessions using the `touch_app` icon with label "Flip".
