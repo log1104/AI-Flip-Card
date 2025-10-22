@@ -45,8 +45,14 @@ const StudyCard = forwardRef<StudyCardHandle, StudyCardProps>(
             isFlipped ? '[transform:rotateY(180deg)]' : ''
           }`}
         >
-          <div className="flip-front-surface absolute w-full h-full [backface-visibility:hidden] rounded-3xl shadow-2xl bg-white p-8 overflow-y-auto">
-            {frontContent}
+          <div className="flip-front-surface absolute w-full h-full [backface-visibility:hidden] rounded-3xl shadow-2xl bg-white p-8 overflow-hidden">
+            <div className="h-full overflow-auto pr-1">
+              {frontContent}
+            </div>
+            <div className="pointer-events-none absolute bottom-6 right-6 flex items-center gap-2 text-gray-400">
+              <span className="material-icons text-lg">touch_app</span>
+              <span className="text-xs font-medium tracking-wide">Flip</span>
+            </div>
           </div>
           <div className="flip-back-surface absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-3xl shadow-2xl bg-blue-600 text-white p-8 overflow-y-auto">
             {backContent}
