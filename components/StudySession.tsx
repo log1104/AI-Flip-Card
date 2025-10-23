@@ -69,46 +69,47 @@ const StudySession: React.FC<StudySessionProps> = ({ session, deck, onClose, onN
         </button>
       </header>
       <main className="flex flex-1 flex-col items-center justify-center px-4 sm:px-6 pb-12 sm:pb-16">
-        <div className="relative grid w-full max-w-5xl grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-6">
+        <div className="w-full max-w-5xl flex justify-center">
+          <StudyCard
+            ref={cardRef}
+            className="w-full h-[60vh] max-w-[92vw] sm:max-w-2xl"
+            initialFlipped={!session.showingFront}
+            onFlip={onFlip}
+            frontContent={
+              <div className="space-y-4">
+                <h3 className="text-2xl font-semibold text-gray-900">{currentCard.front.title || 'Question'}</h3>
+                <p className="text-base leading-relaxed text-gray-600">{currentCard.front.content}</p>
+              </div>
+            }
+            backContent={
+              <div className="space-y-4">
+                <h3 className="text-2xl font-semibold text-white">{currentCard.back.title || 'Answer'}</h3>
+                <p className="text-base leading-relaxed text-blue-50">{currentCard.back.content}</p>
+              </div>
+            }
+          />
+        </div>
+
+        <div className="mt-8 flex w-full max-w-5xl items-center justify-between px-2">
           <button
             onClick={onPrev}
-            className="rounded-full p-3 text-white/50 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/40"
+            className="rounded-full p-3 text-white/60 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/40"
             aria-label="Previous card"
           >
             <span className="material-icons text-3xl">chevron_left</span>
           </button>
-          <div className="flex justify-center px-4">
-            <StudyCard
-              ref={cardRef}
-              className="w-full max-w-2xl h-[60vh]"
-              initialFlipped={!session.showingFront}
-              onFlip={onFlip}
-              frontContent={
-                <div className="space-y-4">
-                  <h3 className="text-2xl font-semibold text-gray-900">{currentCard.front.title || 'Question'}</h3>
-                  <p className="text-base leading-relaxed text-gray-600">{currentCard.front.content}</p>
-                </div>
-              }
-              backContent={
-                <div className="space-y-4">
-                  <h3 className="text-2xl font-semibold text-white">{currentCard.back.title || 'Answer'}</h3>
-                  <p className="text-base leading-relaxed text-blue-50">{currentCard.back.content}</p>
-                </div>
-              }
-            />
+          <div className="text-sm font-medium tracking-wide text-white/70">
+            {session.currentIndex + 1} / {totalCards}
+            {deck ? ` - ${deck.title}` : ''}
           </div>
           <button
             onClick={onNext}
-            className="rounded-full p-3 text-white/50 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/40"
+            className="rounded-full p-3 text-white/60 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/40"
             aria-label="Next card"
           >
             <span className="material-icons text-3xl">chevron_right</span>
           </button>
         </div>
-        <p className="mt-8 text-sm font-medium tracking-wide text-white/70">
-          {session.currentIndex + 1} / {totalCards}
-          {deck ? ` - ${deck.title}` : ''}
-        </p>
       </main>
     </div>
   );
